@@ -1,6 +1,6 @@
 {
 	"name": "got4aws",
-	"version": "0.0.0",
+	"version": "1.0.0",
 	"description": "Convenience wrapper for Got to interact with AWS v4 signed APIs",
 	"license": "MIT",
 	"repository": "SamVerschueren/got4aws",
