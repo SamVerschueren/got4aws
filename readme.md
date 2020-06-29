@@ -1,4 +1,4 @@
-# aws4got [![Build Status](https://travis-ci.org/samverschueren/got4aws.svg?branch=master)](https://travis-ci.org/samverschueren/got4aws)
+# got4aws [![Build Status](https://travis-ci.org/samverschueren/got4aws.svg?branch=master)](https://travis-ci.org/samverschueren/got4aws)
 
 > Convenience wrapper for [Got](https://github.com/sindresorhus/got) to interact with [AWS v4 signed](https://docs.aws.amazon.com/general/latest/gr/signing_aws_api_requests.html) APIs
 
