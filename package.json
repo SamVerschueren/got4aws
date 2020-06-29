@@ -1,0 +1,51 @@
+{
+	"name": "got4aws",
+	"version": "0.0.0",
+	"description": "Convenience wrapper for Got to interact with AWS v4 signed APIs",
+	"license": "MIT",
+	"repository": "SamVerschueren/got4aws",
+	"author": {
+		"name": "Sam Verschueren",
+		"email": "sam.verschueren@gmail.com",
+		"url": "https://github.com/SamVerschueren"
+	},
+	"main": "dist/index.js",
+	"engines": {
+		"node": ">=10"
+	},
+	"scripts": {
+		"test": "xo",
+		"compile": "tsc -p ."
+	},
+	"files": [
+		"dist"
+	],
+	"keywords": [
+		"got-plugin",
+		"got",
+		"aws",
+		"aws4",
+		"api",
+		"sigv4",
+		"request",
+		"http",
+		"https",
+		"get",
+		"url",
+		"utility"
+	],
+	"peerDependencies": {
+		"aws-sdk": "^2.700.0"
+	},
+	"dependencies": {
+		"aws4": "^1.10.0",
+		"got": "^11.3.0"
+	},
+	"devDependencies": {
+		"@sindresorhus/tsconfig": "^0.7.0",
+		"@types/aws4": "^1.5.1",
+		"aws-sdk": "^2.700.0",
+		"typescript": "^3.9.5",
+		"xo": "^0.32.0"
+	}
+}
