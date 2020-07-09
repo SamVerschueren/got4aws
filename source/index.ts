@@ -13,11 +13,13 @@ export interface GotAWSOptions {
 
 	/**
 	 * The AWS service the request is being signed for. Will try to be inferred by the URL if not provided.
+	 *
+	 * For example, when signing a request for API Gateway with a custom domain, this should be `execute-api`.
 	 */
 	service?: string;
 
 	/**
-	 * The AWS region the request is executed in. Will try to be inferred by the URL if not provided.
+	 * The region of the service being invoked. If it could not be inferred through the URL, it will default to `us-east-1`.
 	 */
 	region?: string;
 }

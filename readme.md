@@ -108,14 +108,18 @@ Returns a [`Got`](https://github.com/sindresorhus/got) instance.
 Type: [`Credentials | Credentials[]`](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/Credentials.html)<br>
 Default: [`EnvironmentCredentials`](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EnvironmentCredentials.html)
 
-One ore more credential providers that are passed through to the [CredentialsProviderChain](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CredentialProviderChain.html). These providers are used to infer the AWS credentials used for signing the requests.
+A provider or a list of providers used to search for AWS credentials. If no providers are provided, it will use the [EnvironmentCredentials](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/EnvironmentCredentials.html) provider.
+
+See the [CredentialProviderChain](https://docs.aws.amazon.com/AWSJavaScriptSDK/latest/AWS/CredentialProviderChain.html) documentation for more information.
 
 ##### service
 
 Type: `string`<br>
 Default: *inferred through URL*
 
-The name of the service to sign the request for. For example, when signing a request for API Gateway with a custom domain, this should be `execute-api`.
+The AWS service the request is being signed for. Will try to be inferred by the URL if not provided.
+
+For example, when signing a request for API Gateway with a custom domain, this should be `execute-api`.
 
 ##### region
 
