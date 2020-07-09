@@ -2,6 +2,9 @@ import got from 'got';
 import * as AWS from 'aws-sdk';
 import * as aws4 from 'aws4';
 
+// Name of the header used for X-ray tracing
+const XRAY_TRACE_HEADER = 'x-amzn-trace-id';
+
 export interface GotAWSOptions {
 	/**
 	 * A provider or a list of providers used to search for AWS credentials. If no providers are provided,
@@ -53,12 +56,15 @@ const got4aws = (awsOptions: GotAWSOptions = {}) => {
 
 					const {url, headers} = options;
 
+					// Extract the Amazon trace id from the headers as it shouldn't be used for signing
+					const {[XRAY_TRACE_HEADER]: amazonTraceId, ...signingHeaders} = headers;
+
 					// Map the request to something that is signable by aws4
 					const request = {
 						protocol: url.protocol,
 						host: url.host,
 						path: url.pathname,
-						headers,
+						headers: signingHeaders,
 						body: options.json ? JSON.stringify(options.json) : options.body,
 						service: awsOptions.service,
 						region: awsOptions.region
@@ -66,7 +72,11 @@ const got4aws = (awsOptions: GotAWSOptions = {}) => {
 
 					aws4.sign(request, credentials);
 
-					options.headers = request.headers;
+					options.headers = {
+						...request.headers,
+						// Put back the trace id if we have one
+						...(amazonTraceId ? {[XRAY_TRACE_HEADER]: amazonTraceId} : {})
+					};
 				}
 			]
 		}
