@@ -43,6 +43,7 @@ const got4aws = (awsOptions: GotAWSOptions = {}) => {
 	const chain = new AWS.CredentialProviderChain(credentialProviders as any);
 
 	return got.extend({
+		responseType: 'json',
 		hooks: {
 			beforeRequest: [
 				async options => {

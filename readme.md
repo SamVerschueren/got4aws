@@ -44,9 +44,7 @@ import got4aws from 'got4aws';
 const got = got4aws();
 
 (async () => {
-	const {body} = await got.get('https://12abc34.execute-api.us-east-1.amazonaws.com/v0', {
-		responseType: 'json'
-	});
+	const {body} = await got.get('https://12abc34.execute-api.us-east-1.amazonaws.com/v0');
 
 	console.log(body);
 	//=> {status: 'ok'}
@@ -64,9 +62,7 @@ const got = got4aws({
 });
 
 (async () => {
-	const {body} = await got.get('https://12abc34.execute-api.us-east-1.amazonaws.com/v0', {
-		responseType: 'json'
-	});
+	const {body} = await got.get('https://12abc34.execute-api.us-east-1.amazonaws.com/v0');
 
 	console.log(body);
 	//=> {status: 'ok'}
@@ -85,9 +81,7 @@ const got = got4aws({
 });
 
 (async () => {
-	const {body} = await got.get('https://api.unicorn.com/v0', {
-		responseType: 'json'
-	});
+	const {body} = await got.get('https://api.unicorn.com/v0');
 
 	console.log(body);
 	//=> {status: 'ok'}
@@ -99,7 +93,7 @@ const got = got4aws({
 
 ### got4aws(options?)
 
-Returns a [`Got`](https://github.com/sindresorhus/got) instance.
+Returns a [`Got`](https://github.com/sindresorhus/got) instance with a default `responseType` set to `json`.
 
 #### options
 
