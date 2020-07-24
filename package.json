@@ -14,8 +14,9 @@
 		"node": ">=10"
 	},
 	"scripts": {
-		"test": "xo",
-		"compile": "tsc -p ."
+		"pretest": "npm run compile -- -p tsconfig.spec.json",
+		"test": "xo && nyc ava",
+		"compile": "del-cli dist && tsc"
 	},
 	"files": [
 		"dist"
@@ -42,10 +43,29 @@
 		"got": "^11.3.0"
 	},
 	"devDependencies": {
+		"@ava/typescript": "^1.1.1",
 		"@sindresorhus/tsconfig": "^0.7.0",
 		"@types/aws4": "^1.5.1",
+		"@types/sinon": "^9.0.4",
+		"ava": "^3.10.1",
 		"aws-sdk": "^2.700.0",
+		"del-cli": "^3.0.1",
+		"nock": "^13.0.2",
+		"nyc": "^15.1.0",
+		"sinon": "^9.0.2",
 		"typescript": "^3.9.5",
 		"xo": "^0.32.0"
+	},
+	"ava": {
+		"typescript": {
+			"rewritePaths": {
+				"source/": "dist/"
+			}
+		}
+	},
+	"nyc": {
+		"exclude": [
+			"source/test.ts"
+		]
 	}
 }

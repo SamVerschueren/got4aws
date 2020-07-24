@@ -11,5 +11,8 @@
 	},
 	"include": [
 		"source"
+	],
+	"exclude": [
+		"source/test.ts"
 	]
 }
