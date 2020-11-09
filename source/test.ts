@@ -61,7 +61,7 @@ test('provide service option', async t => {
 
 	t.deepEqual(extractHeaders(result), {
 		'X-Amz-Date': '20200701T100000Z',
-		Authorization: 'AWS4-HMAC-SHA256 Credential=unicorn/20200701/us-east-1/execute-api/aws4_request, SignedHeaders=accept;accept-encoding;host;user-agent;x-amz-date, Signature=b6c4ab33c3992fca1f90e5003be094a468eb71655f3891c98aec815b60ceaa23'
+		Authorization: 'AWS4-HMAC-SHA256 Credential=unicorn/20200701/us-east-1/execute-api/aws4_request, SignedHeaders=accept;accept-encoding;host;x-amz-date, Signature=836d8e29b1cf3cbe6f8401dd9cf9703adc5b95d9c96be2e5646d878dddb856b3'
 	});
 
 	t.deepEqual(result.body as unknown, {
@@ -79,7 +79,7 @@ test('provide region option', async t => {
 
 	t.deepEqual(extractHeaders(result), {
 		'X-Amz-Date': '20200701T100000Z',
-		Authorization: 'AWS4-HMAC-SHA256 Credential=unicorn/20200701/eu-west-1/execute-api/aws4_request, SignedHeaders=accept;accept-encoding;host;user-agent;x-amz-date, Signature=2f30e9cec0e1429031f846074642b0f247b61c36e51159385057bbfb18e10fc4'
+		Authorization: 'AWS4-HMAC-SHA256 Credential=unicorn/20200701/eu-west-1/execute-api/aws4_request, SignedHeaders=accept;accept-encoding;host;x-amz-date, Signature=c37cc081b7ba9cfcc703a2402a92f321409f69279c590451e3c5316619354dee'
 	});
 
 	t.deepEqual(result.body as unknown, {
@@ -94,7 +94,7 @@ test('infer service and region', async t => {
 
 	t.deepEqual(extractHeaders(result), {
 		'X-Amz-Date': '20200701T100000Z',
-		Authorization: 'AWS4-HMAC-SHA256 Credential=unicorn/20200701/eu-west-1/execute-api/aws4_request, SignedHeaders=accept;accept-encoding;host;user-agent;x-amz-date, Signature=f41b94660fa4d74b99058b4e6754cb28e33c2c1cf6ddfea4cc96826cd5d65a63'
+		Authorization: 'AWS4-HMAC-SHA256 Credential=unicorn/20200701/eu-west-1/execute-api/aws4_request, SignedHeaders=accept;accept-encoding;host;x-amz-date, Signature=73fdc63b723db15c5248d0105f7614ada5e2150d9587f1013121d0022b85f497'
 	});
 
 	t.deepEqual(result.body as unknown, {
