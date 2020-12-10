@@ -20,6 +20,8 @@ test.before(() => {
 	nock('http://www.example.com')
 		.get('/resource')
 		.reply(200, '{"unicorn":"🦄"}')
+		.get('/resource?unicorn=rainbow')
+		.reply(200, '{"unicorn":"rainbow"}')
 		.persist();
 
 	nock('https://rainbow.execute-api.eu-west-1.amazonaws.com')
@@ -66,6 +68,23 @@ test('provide service option', async t => {
 
 	t.deepEqual(result.body as unknown, {
 		unicorn: '🦄'
+	});
+});
+
+test('use querystring', async t => {
+	const got = got4aws({
+		service: 'execute-api'
+	});
+
+	const result = await got('http://www.example.com/resource?unicorn=rainbow');
+
+	t.deepEqual(extractHeaders(result), {
+		'X-Amz-Date': '20200701T100000Z',
+		Authorization: 'AWS4-HMAC-SHA256 Credential=unicorn/20200701/us-east-1/execute-api/aws4_request, SignedHeaders=accept;accept-encoding;host;x-amz-date, Signature=a7367f1443e9ba4cc100382f053ffda70a6f880f010e742aa35a033cf6cf20d4'
+	});
+
+	t.deepEqual(result.body as unknown, {
+		unicorn: 'rainbow'
 	});
 });
 
