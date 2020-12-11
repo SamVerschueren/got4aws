@@ -64,8 +64,8 @@ const got4aws = (awsOptions: GotAWSOptions = {}) => {
 					const request = {
 						protocol: url.protocol,
 						host: url.host,
-						path: url.pathname + (url.search || ''),
 						method: options.method,
+						path: url.pathname + url.search,
 						headers: signingHeaders,
 						body: options.json ? JSON.stringify(options.json) : options.body,
 						service: awsOptions.service,
