@@ -2,6 +2,7 @@ import test from 'ava';
 import * as nock from 'nock';
 import * as sinon from 'sinon';
 import {Response} from 'got';
+import * as aws4 from 'aws4';
 import got4aws from '.';
 
 process.env.AWS_ACCESS_KEY_ID = 'unicorn';
@@ -22,6 +23,10 @@ test.before(() => {
 		.reply(200, '{"unicorn":"🦄"}')
 		.get('/resource?unicorn=rainbow')
 		.reply(200, '{"unicorn":"rainbow"}')
+		.post('/resource')
+		.reply(204)
+		.patch('/resource')
+		.reply(204)
 		.persist();
 
 	nock('https://rainbow.execute-api.eu-west-1.amazonaws.com')
@@ -119,4 +124,51 @@ test('infer service and region', async t => {
 	t.deepEqual(result.body as unknown, {
 		rainbow: '🌈'
 	});
+});
+
+test('use POST method', async t => {
+	const got = got4aws();
+	const payload = {test: 'yellow'};
+	const result = await got.post('http://www.example.com/resource', {json: payload});
+
+	const request = {
+		method: 'POST',
+		host: 'www.example.com',
+		path: '/resource',
+		headers: {
+			Accept: 'application/json',
+			'Accept-Encoding': 'gzip, deflate, br',
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify(payload)
+	};
+	const sign = aws4.sign(request);
+
+	t.deepEqual(extractHeaders(result), {
+		'X-Amz-Date': sign.headers['X-Amz-Date'],
+		Authorization: sign.headers.Authorization
+	});
+	t.is(result.statusCode, 204);
+});
+
+test('use PATCH method', async t => {
+	const got = got4aws();
+	const result = await got.patch('http://www.example.com/resource');
+
+	const request = {
+		method: 'PATCH',
+		host: 'www.example.com',
+		path: '/resource',
+		headers: {
+			Accept: 'application/json',
+			'Accept-Encoding': 'gzip, deflate, br'
+		}
+	};
+	const sign = aws4.sign(request);
+
+	t.deepEqual(extractHeaders(result), {
+		'X-Amz-Date': sign.headers['X-Amz-Date'],
+		Authorization: sign.headers.Authorization
+	});
+	t.is(result.statusCode, 204);
 });
